@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>myKaarma — Product One-Pager</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #1a1a1a; --ink-2: #444; --ink-3: #777; --ink-4: #aaa;
+    --surface: #ffffff; --surface-2: #f7f6f3; --surface-3: #f0ede8;
+    --border: #e2ddd6; --border-2: #ccc9c0;
+    --accent: #c84b1f; --accent-light: #fdf0eb; --accent-mid: #f0c4b0;
+    --green: #1a6b3c; --green-light: #eaf4ee;
+    --amber: #7a4f00; --amber-light: #fef8ec;
+    --red: #8b1c1c; --red-light: #fdf0f0;
+    --blue: #1a3f6b; --blue-light: #eef4fd;
+    --purple: #4a1d8a; --purple-light: #f3eeff;
+    --radius: 6px; --radius-lg: 10px;
+  }
+  html { font-size: 15px; }
+  body { font-family: 'DM Sans', sans-serif; background: #f2efe9; color: var(--ink); min-height: 100vh; }
+
+  /* ── HEADER ── */
+  .site-header { background: var(--ink); padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+  .site-header .logo { font-size: 13px; font-weight: 600; color: #fff; letter-spacing: 0.08em; text-transform: uppercase; }
+  .site-header .doc-type { font-size: 12px; color: #888; font-weight: 400; letter-spacing: 0.04em; }
+  .progress-wrap { background: #e8e4de; height: 3px; width: 100%; }
+  .progress-bar { height: 3px; background: var(--accent); transition: width 0.4s ease; width: 0%; }
+
+  /* ── LAYOUT ── */
+  .main { max-width: 780px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* ── AUTOSAVE BANNER ── */
+  .autosave-banner {
+    background: var(--green-light); border: 1px solid #a8d8be; border-radius: var(--radius);
+    padding: 12px 16px; margin-bottom: 20px; font-size: 13px; color: var(--green);
+    display: flex; align-items: flex-start; gap: 10px; line-height: 1.5;
+  }
+  .autosave-banner strong { font-weight: 600; }
+  .autosave-banner .dismiss { margin-left: auto; cursor: pointer; font-size: 16px; opacity: 0.5; line-height: 1; padding: 0 4px; flex-shrink: 0; }
+  .autosave-banner .dismiss:hover { opacity: 1; }
+  .save-indicator {
+    position: fixed; bottom: 20px; right: 20px; z-index: 200;
+    background: var(--ink); color: #fff; font-size: 12px; padding: 7px 14px;
+    border-radius: 20px; opacity: 0; transition: opacity 0.3s ease;
+    pointer-events: none; font-family: 'DM Mono', monospace;
+  }
+  .save-indicator.visible { opacity: 1; }
+
+  /* ── TYPE SELECTOR ── */
+  .type-selector { margin-bottom: 32px; }
+  .type-selector h1 { font-size: 26px; font-weight: 600; color: var(--ink); line-height: 1.25; margin-bottom: 6px; }
+  .type-selector p { font-size: 14px; color: var(--ink-3); line-height: 1.6; margin-bottom: 20px; }
+  .type-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .type-card {
+    background: var(--surface); border: 2px solid var(--border); border-radius: var(--radius-lg);
+    padding: 20px; cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden;
+  }
+  .type-card:hover { border-color: var(--border-2); background: var(--surface-2); transform: translateY(-1px); }
+  .type-card.selected-customer { border-color: var(--accent); background: var(--accent-light); }
+  .type-card.selected-arch { border-color: var(--purple); background: var(--purple-light); }
+  .type-card .type-icon { font-size: 24px; margin-bottom: 10px; display: block; }
+  .type-card h3 { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .type-card .type-tag {
+    display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 2px 8px; border-radius: 20px; margin-bottom: 8px;
+  }
+  .type-card.selected-customer .type-tag { background: var(--accent); color: #fff; }
+  .type-card.selected-arch .type-tag { background: var(--purple); color: #fff; }
+  .type-card:not(.selected-customer):not(.selected-arch) .type-tag { background: var(--surface-3); color: var(--ink-3); }
+  .type-card p { font-size: 13px; color: var(--ink-3); line-height: 1.5; margin-bottom: 0; }
+  .type-card .use-when { font-size: 12px; font-weight: 500; color: var(--ink-2); margin-top: 10px; margin-bottom: 4px; }
+  .type-card ul { font-size: 12px; color: var(--ink-3); padding-left: 16px; line-height: 1.6; }
+  .type-card .check-badge {
+    position: absolute; top: 12px; right: 12px; width: 22px; height: 22px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 12px;
+    opacity: 0; transition: opacity 0.2s;
+  }
+  .type-card.selected-customer .check-badge { opacity: 1; background: var(--accent); color: #fff; }
+  .type-card.selected-arch .check-badge { opacity: 1; background: var(--purple); color: #fff; }
+
+  /* ── FORM SECTIONS ── */
+  .form-section { display: none; }
+  .form-section.active { display: block; }
+
+  /* ── PAGE INTRO ── */
+  .page-intro { margin-bottom: 28px; }
+  .page-intro .stage-tag {
+    display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 3px 10px; border-radius: 20px; margin-bottom: 10px;
+  }
+  .stage-tag-customer { color: var(--accent); background: var(--accent-light); border: 1px solid var(--accent-mid); }
+  .stage-tag-arch { color: var(--purple); background: var(--purple-light); border: 1px solid #c9b3f0; }
+  .page-intro h2 { font-size: 22px; font-weight: 600; color: var(--ink); line-height: 1.25; margin-bottom: 6px; }
+  .page-intro p { font-size: 13px; color: var(--ink-3); line-height: 1.6; }
+
+  /* ── CARDS ── */
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); margin-bottom: 20px; overflow: hidden; }
+  .card-header { padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--surface-2); }
+  .card-header-left { display: flex; align-items: center; gap: 10px; }
+  .section-num { width: 24px; height: 24px; border-radius: 50%; background: var(--ink); color: #fff; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .section-num.arch { background: var(--purple); }
+  .card-header h2 { font-size: 14px; font-weight: 600; color: var(--ink); }
+  .card-header .points { font-size: 12px; color: var(--ink-3); font-family: 'DM Mono', monospace; }
+  .card-body { padding: 20px; }
+
+  /* ── CONTEXT BOXES ── */
+  .context-box { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 16px; margin-bottom: 16px; font-size: 13px; color: var(--ink-2); line-height: 1.6; }
+  .context-box strong { color: var(--ink); font-weight: 600; }
+  .context-box em { font-style: italic; color: var(--ink-3); }
+  .warn-box { background: var(--amber-light); border: 1px solid #e8c87a; border-radius: var(--radius); padding: 12px 16px; margin-bottom: 16px; font-size: 13px; color: var(--amber); line-height: 1.6; display: flex; gap: 10px; align-items: flex-start; }
+  .warn-box .icon { flex-shrink: 0; font-size: 15px; margin-top: 1px; }
+  .rule-box { background: var(--surface-3); border-left: 3px solid var(--border-2); border-radius: 0 var(--radius) var(--radius) 0; padding: 10px 14px; margin-top: 12px; font-size: 12px; color: var(--ink-3); line-height: 1.5; }
+  .rule-box strong { color: var(--ink-2); }
+  .rule-box.stop { border-left-color: var(--red); background: var(--red-light); }
+
+  /* ── FIELDS ── */
+  label { display: block; font-size: 13px; font-weight: 500; color: var(--ink-2); margin-bottom: 6px; }
+  label .req { color: var(--accent); margin-left: 2px; }
+  input[type="text"], input[type="date"], select, textarea { width: 100%; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--ink); background: var(--surface); border: 1px solid var(--border-2); border-radius: var(--radius); padding: 9px 12px; outline: none; transition: border-color 0.15s, box-shadow 0.15s; resize: vertical; }
+  input:focus, select:focus, textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(200,75,31,0.1); }
+  textarea { min-height: 100px; line-height: 1.6; }
+  .arch-focus input:focus, .arch-focus select:focus, .arch-focus textarea:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(74,29,138,0.1); }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .field-row.triple { grid-template-columns: 1fr 1fr 1fr; }
+  .field { margin-bottom: 14px; }
+  .field:last-child { margin-bottom: 0; }
+  .helper { font-size: 12px; color: var(--ink-3); margin-top: 5px; line-height: 1.5; }
+  .char-counter { font-size: 11px; font-family: 'DM Mono', monospace; color: var(--ink-4); text-align: right; margin-top: 4px; }
+  .char-counter.warn { color: var(--amber); }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+
+  /* ── AI CHECK ── */
+  .ai-check { margin-top: 10px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); display: none; }
+  .ai-check.visible { display: block; }
+  .ai-check-header { padding: 8px 12px; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+  .ai-check.checking .ai-check-header { background: var(--blue-light); color: var(--blue); }
+  .ai-check.ok .ai-check-header { background: var(--green-light); color: var(--green); }
+  .ai-check.warn .ai-check-header { background: var(--amber-light); color: var(--amber); }
+  .ai-check.error .ai-check-header { background: var(--red-light); color: var(--red); }
+  .ai-check-body { padding: 10px 12px; font-size: 13px; color: var(--ink-2); line-height: 1.6; background: var(--surface); border-top: 1px solid var(--border); }
+  .ai-spinner { width: 12px; height: 12px; border: 2px solid currentColor; border-top-color: transparent; border-radius: 50%; animation: spin 0.7s linear infinite; display: inline-block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── TIERS ── */
+  .tier-grid { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+  .tier-option { display: flex; align-items: flex-start; gap: 12px; padding: 10px 14px; border: 1px solid var(--border); border-radius: var(--radius); cursor: pointer; transition: all 0.15s; background: var(--surface); }
+  .tier-option:hover { border-color: var(--border-2); background: var(--surface-2); }
+  .tier-option.selected { border-color: var(--accent); background: var(--accent-light); box-shadow: 0 0 0 2px rgba(200,75,31,0.12); }
+  .arch-focus .tier-option.selected { border-color: var(--purple); background: var(--purple-light); box-shadow: 0 0 0 2px rgba(74,29,138,0.12); }
+  .tier-option.selected .tier-pts { color: var(--accent); }
+  .arch-focus .tier-option.selected .tier-pts { color: var(--purple); }
+  .tier-radio { width: 16px; height: 16px; border: 2px solid var(--border-2); border-radius: 50%; flex-shrink: 0; margin-top: 2px; transition: all 0.15s; position: relative; }
+  .tier-option.selected .tier-radio { border-color: var(--accent); background: var(--accent); }
+  .arch-focus .tier-option.selected .tier-radio { border-color: var(--purple); background: var(--purple); }
+  .tier-option.selected .tier-radio::after { content: ''; position: absolute; inset: 3px; background: white; border-radius: 50%; }
+  .tier-content { flex: 1; }
+  .tier-name { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
+  .tier-desc { font-size: 12px; color: var(--ink-3); line-height: 1.5; }
+  .tier-pts { font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; color: var(--ink-3); white-space: nowrap; padding-top: 2px; }
+  .tier-option[data-tier="1"] { opacity: 0.7; }
+  .tier-option[data-tier="1"].selected { opacity: 1; border-color: var(--red); background: var(--red-light); }
+  .tier-option[data-tier="1"].selected .tier-pts { color: var(--red); }
+  .tier-option[data-tier="1"].selected .tier-radio { border-color: var(--red); background: var(--red); }
+
+  /* ── PILOT / RADIO PILLS ── */
+  .radio-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .radio-pill { display: flex; align-items: center; gap: 6px; padding: 7px 14px; border: 1px solid var(--border-2); border-radius: 20px; cursor: pointer; font-size: 13px; color: var(--ink-2); transition: all 0.15s; background: var(--surface); }
+  .radio-pill:hover { border-color: var(--accent); }
+  .radio-pill input { display: none; }
+  .radio-pill.selected { border-color: var(--accent); background: var(--accent-light); color: var(--accent); font-weight: 500; }
+  .arch-focus .radio-pill.selected { border-color: var(--purple); background: var(--purple-light); color: var(--purple); }
+
+  /* ── SCORE ── */
+  .score-summary { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 20px; }
+  .score-header { background: var(--ink); padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; }
+  .score-header h2 { font-size: 14px; font-weight: 600; color: #fff; }
+  .score-total { font-family: 'DM Mono', monospace; font-size: 20px; font-weight: 500; color: #fff; }
+  .score-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .score-row:last-child { border-bottom: none; }
+  .score-row .label { color: var(--ink-2); }
+  .val { font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; padding: 2px 10px; border-radius: 20px; }
+  .val.pass { background: var(--green-light); color: var(--green); }
+  .val.fail { background: var(--red-light); color: var(--red); }
+  .val.partial { background: var(--amber-light); color: var(--amber); }
+  .val.pending { background: var(--surface-2); color: var(--ink-3); }
+  .val.score { background: var(--surface-2); color: var(--ink); }
+  .threshold-row { padding: 12px 20px; background: var(--surface-2); border-top: 1px solid var(--border); font-size: 12px; color: var(--ink-3); }
+  .threshold-track { height: 6px; background: var(--border); border-radius: 3px; margin-top: 8px; position: relative; overflow: hidden; }
+  .threshold-fill { height: 100%; background: var(--accent); border-radius: 3px; transition: width 0.4s ease; }
+  .threshold-marker { position: absolute; top: -3px; width: 2px; height: 12px; background: var(--green); left: 77.7%; }
+
+  /* ── SUBMIT ── */
+  .submit-area { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 24px 0; }
+  .btn-submit { font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; color: #fff; background: var(--accent); border: none; border-radius: var(--radius); padding: 14px 40px; cursor: pointer; transition: all 0.15s; letter-spacing: 0.01em; }
+  .btn-submit:hover { background: #b04018; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(200,75,31,0.25); }
+  .btn-submit:disabled { background: var(--ink-4); cursor: not-allowed; transform: none; box-shadow: none; }
+  .btn-submit.arch-btn { background: var(--purple); }
+  .btn-submit.arch-btn:hover { background: #3a1570; box-shadow: 0 4px 12px rgba(74,29,138,0.25); }
+  .submit-note { font-size: 12px; color: var(--ink-3); text-align: center; max-width: 400px; }
+  .error-banner { background: var(--red-light); border: 1px solid #e8a0a0; border-radius: var(--radius); padding: 12px 16px; font-size: 13px; color: var(--red); margin-bottom: 16px; display: none; }
+  .error-banner.visible { display: block; }
+
+  /* ── SUCCESS ── */
+  .success-screen { display: none; text-align: center; padding: 60px 20px; }
+  .success-screen.visible { display: block; }
+  .success-icon { width: 64px; height: 64px; border-radius: 50%; background: var(--green-light); border: 2px solid var(--green); display: flex; align-items: center; justify-content: center; font-size: 28px; margin: 0 auto 20px; }
+  .success-screen h2 { font-size: 22px; font-weight: 600; margin-bottom: 8px; }
+  .success-screen p { font-size: 14px; color: var(--ink-3); line-height: 1.6; max-width: 480px; margin: 0 auto 20px; }
+  .success-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+  .success-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--accent); background: var(--accent-light); border: 1px solid var(--accent-mid); padding: 8px 16px; border-radius: var(--radius); text-decoration: none; transition: all 0.15s; }
+  .success-link:hover { background: var(--accent); color: #fff; }
+  button.success-link { cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 13px; }
+  .btn-another { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; color: var(--ink-2); background: var(--surface-2); border: 1px solid var(--border-2); border-radius: var(--radius); padding: 10px 24px; cursor: pointer; margin-top: 8px; transition: all 0.15s; }
+  .btn-another:hover { background: var(--surface-3); }
+
+  @media (max-width: 600px) {
+    .type-cards { grid-template-columns: 1fr; }
+    .field-row { grid-template-columns: 1fr; }
+    .field-row.triple { grid-template-columns: 1fr; }
+    .main { padding: 24px 16px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <span class="logo">myKaarma</span>
+  <span class="doc-type" id="headerDocType">Product One-Pager &nbsp;·&nbsp; Investigation Request</span>
+</header>
+<div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+
+<main class="main" id="mainForm">
+
+  <!-- ── AUTO-SAVE RESTORED BANNER ── -->
+  <div class="autosave-banner" id="restoreBanner" style="display:none;">
+    <span>&#128277;</span>
+    <div>
+      <strong>Draft restored.</strong> We found a saved draft on this device from your last session. Your progress has been loaded automatically.
+      &nbsp;<a href="#" onclick="clearDraft(event)" style="color:var(--green); text-decoration:underline;">Clear draft and start over</a>
+    </div>
+    <span class="dismiss" onclick="document.getElementById('restoreBanner').style.display='none'">×</span>
+  </div>
+
+  <!-- ── TYPE SELECTION ── -->
+  <div class="type-selector" id="typeSelectorSection">
+    <h1>Product one-pager</h1>
+    <p>Choose the type that matches your initiative. Each has different evidence requirements and output paths.</p>
+    <div class="type-cards">
+
+      <div class="type-card" id="cardCustomer" onclick="selectType('customer')">
+        <span class="check-badge">✓</span>
+        <span class="type-icon">&#128101;</span>
+        <span class="type-tag">Customer track</span>
+        <h3>Customer initiative</h3>
+        <p>For work where the primary driver is a dealer, OEM, or end-user need. Requires customer interview evidence.</p>
+        <p class="use-when">Use this when:</p>
+        <ul>
+          <li>A dealer or OEM requested the capability</li>
+          <li>A product gap is causing churn or friction</li>
+          <li>You have customer conversations to back it up</li>
+        </ul>
+      </div>
+
+      <div class="type-card" id="cardArch" onclick="selectType('arch')">
+        <span class="check-badge">✓</span>
+        <span class="type-icon">&#9881;</span>
+        <span class="type-tag">Architecture track</span>
+        <h3>Architecture / platform</h3>
+        <p>For platform, infrastructure, and architectural constraint work. Requires technical evidence, not customer interviews.</p>
+        <p class="use-when">Use this when:</p>
+        <ul>
+          <li>A technical constraint blocks a product bet</li>
+          <li>A system cannot scale to required load</li>
+          <li>You have benchmark or incident data to back it up</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- CUSTOMER TRACK -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <div class="form-section" id="customerForm">
+
+    <div class="page-intro">
+      <span class="stage-tag stage-tag-customer">Customer track &nbsp;·&nbsp; Stage: Discover</span>
+      <h2>Customer initiative one-pager</h2>
+      <p>Focus on the problem, not the solution. Ideas advanced on opinions alone will not be approved.</p>
+    </div>
+
+    <!-- Header fields -->
+    <div class="card">
+      <div class="card-header"><div class="card-header-left"><div class="section-num">i</div><h2>Submission details</h2></div></div>
+      <div class="card-body">
+        <div class="field-row">
+          <div class="field"><label>Initiative name <span class="req">*</span></label><input type="text" id="c_initiativeName" placeholder="e.g. Wholesale Parts Payment Module" oninput="autosave(); updateProgress()"></div>
+          <div class="field"><label>Submission date <span class="req">*</span></label><input type="date" id="c_submissionDate" oninput="autosave(); updateProgress()"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Submitted by <span class="req">*</span></label><input type="text" id="c_submittedBy" placeholder="Your name and role" oninput="autosave(); updateProgress()"></div>
+          <div class="field"><label>Sponsor <span class="req">*</span></label><input type="text" id="c_sponsor" placeholder="VP or above — name required" oninput="autosave(); updateProgress()"><p class="helper">Must be VP level or above.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S1: Problem Statement -->
+    <div class="card">
+      <div class="card-header"><div class="card-header-left"><div class="section-num">1</div><h2>Problem statement</h2></div><span class="points">Pass / fail</span></div>
+      <div class="card-body">
+        <div class="context-box"><strong>The question this section answers:</strong> What is broken, missing, or painful for a specific customer right now — and why does it matter?<br><br>One paragraph or less. State the specific pain or gap in concrete terms. Name the customer or market context. <strong>Write zero solution language.</strong></div>
+        <div class="warn-box"><span class="icon">⚠</span><span>If you find yourself writing about a solution, stop. Write down why the problem exists instead. The solution will be better for it.</span></div>
+        <div class="field">
+          <label>Problem statement <span class="req">*</span></label>
+          <textarea id="c_problemStatement" rows="5" placeholder="Describe the specific pain or gap. Name the customer or market context. No solution language." oninput="autosave(); updateProgress(); scheduleAICheck('c_problem')"></textarea>
+          <div class="char-counter" id="c_psCounter">0 words</div>
+        </div>
+        <div class="ai-check" id="aiCheck_c_problem">
+          <div class="ai-check-header"><span class="ai-spinner"></span><span id="aiLabel_c_problem">Checking for solution language...</span></div>
+          <div class="ai-check-body" id="aiBody_c_problem"></div>
+        </div>
+        <div class="rule-box"><strong>Pass / fail:</strong> One paragraph or less. No solution language. Specific customer or market context named. Returns to submitter if fails.</div>
+      </div>
+    </div>
+
+    <!-- S2: Evidence -->
+    <div class="card">
+      <div class="card-header"><div class="card-header-left"><div class="section-num">2</div><h2>Evidence quality</h2></div><span class="points">Max 4 pts</span></div>
+      <div class="card-body">
+        <div class="context-box">Select the tier that honestly describes your strongest evidence. Opinion-based and fact-based evidence are not the same thing.</div>
+        <div class="tier-grid" id="c_tierGrid">
+          <div class="tier-option" data-tier="1" onclick="selectTier('c',1)"><div class="tier-radio"></div><div class="tier-content"><div class="tier-name">Tier 1 — Opinions</div><div class="tier-desc">Self-conviction, pitch deck, thematic alignment with trends or strategy, product methodology.</div></div><div class="tier-pts">0 pts</div></div>
+          <div class="tier-option" data-tier="2" onclick="selectTier('c',2)"><div class="tier-radio"></div><div class="tier-content"><div class="tier-name">Tier 2 — Assessment</div><div class="tier-desc">Others' opinion (team, management, external expert). Estimates, feasibility eval, business model, project timeline.</div></div><div class="tier-pts">1 pt</div></div>
+          <div class="tier-option" data-tier="3" onclick="selectTier('c',3)"><div class="tier-radio"></div><div class="tier-content"><div class="tier-name">Tier 3 — Data, anecdotal</div><div class="tier-desc">1–3 named customers mentioned it. Top sales request. One competitor has it. A few product data points.</div></div><div class="tier-pts">2 pts</div></div>
+          <div class="tier-option" data-tier="4" onclick="selectTier('c',4)"><div class="tier-radio"></div><div class="tier-content"><div class="tier-name">Tier 4 — Data, market</div><div class="tier-desc">Survey results. Smoke tests. All / most competitors have it. Quantitative product usage data.</div></div><div class="tier-pts">3 pts</div></div>
+          <div class="tier-option" data-tier="5" onclick="selectTier('c',5)"><div class="tier-radio"></div><div class="tier-content"><div class="tier-name">Tier 5 — Customer evidence</div><div class="tier-desc">20+ customer or dealer interviews. Lots of product data. Top user request validated at scale. Usability study. MVP.</div></div><div class="tier-pts">4 pts</div></div>
+          <div class="tier-option" data-tier="6" onclick="selectTier('c',6)"><div class="tier-radio"></div><div class="tier-content"><div class="tier-name">Tier 6 — Test results</div><div class="tier-desc">Longitudinal user studies. Large-scale MVP. Alpha / beta. A/B experiments with measured outcomes.</div></div><div class="tier-pts">5 pts</div></div>
+        </div>
+        <div class="rule-box" id="c_tier1Warning" style="display:none; border-left-color:var(--red); background:var(--red-light);"><strong style="color:var(--red);">Tier 1 auto-fails.</strong> This submission will not advance regardless of total score.</div>
+        <div class="rule-box"><strong>Rule:</strong> Tier 1 (opinions) scores 0 and does not advance. Tier 4+ required for significant investment.</div>
+        <hr class="divider">
+        <h3 style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:12px;">2b — Specific evidence <span style="font-weight:400;color:var(--ink-3)">(required for Tier 3 and above)</span></h3>
+        <div class="field"><label>Evidence 1 <span class="req">*</span></label><input type="text" id="c_evidence1" placeholder="Specific data point — include the number, source, and date. 'Several customers said' does not qualify." oninput="autosave(); updateProgress()"></div>
+        <div class="field"><label>Evidence 2</label><input type="text" id="c_evidence2" placeholder="Second data point — different source or signal" oninput="autosave()"></div>
+        <div class="field"><label>Evidence 3</label><input type="text" id="c_evidence3" placeholder="Third data point — named incident, support pattern, or usage metric" oninput="autosave()"></div>
+        <hr class="divider">
+        <h3 style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:4px;">2c — Dealer signal <span style="font-weight:400;color:var(--ink-3)">(required)</span></h3>
+        <p class="helper" style="margin-bottom:12px;">No named dealer conversations + no pilot-willing dealer = max 2 pts on evidence regardless of OEM signal.</p>
+        <div class="field"><label>Named dealers who discussed this problem <span class="req">*</span></label><input type="text" id="c_namedDealers" placeholder="Name at least one specific dealer and the context of the conversation. 'Several dealers' does not qualify." oninput="autosave(); updateProgress()"></div>
+        <div class="field-row">
+          <div class="field"><label>Number of dealer conversations <span class="req">*</span></label><input type="text" id="c_dealerConvCount" placeholder="e.g. 4 conversations, Jan–Mar 2025" oninput="autosave(); updateProgress()"></div>
+          <div class="field">
+            <label>Pilot-willing dealer</label>
+            <div class="radio-row" style="margin-top:4px;">
+              <label class="radio-pill" id="c_pilotYes" onclick="selectPilot('c','yes')"><input type="radio" name="c_pilot" value="yes"> Yes</label>
+              <label class="radio-pill" id="c_pilotNo" onclick="selectPilot('c','no')"><input type="radio" name="c_pilot" value="no"> No</label>
+              <label class="radio-pill selected" id="c_pilotNotAsked" onclick="selectPilot('c','not_asked')"><input type="radio" name="c_pilot" value="not_asked" checked> Not yet asked</label>
+            </div>
+          </div>
+        </div>
+        <div class="field" id="c_pilotNameField" style="display:none;"><label>Pilot dealer name <span class="req">*</span></label><input type="text" id="c_pilotDealerName" placeholder="Specific dealer name" oninput="autosave()"></div>
+      </div>
+    </div>
+
+    <!-- S3: Root Cause -->
+    <div class="card">
+      <div class="card-header"><div class="card-header-left"><div class="section-num">3</div><h2>Root cause hypothesis</h2></div><span class="points">Max 2 pts</span></div>
+      <div class="card-body">
+        <div class="context-box"><strong>What this section is asking:</strong> not just that the problem exists — but why it exists. A hypothesis that can be proven wrong during investigation is a useful hypothesis. A hypothesis that describes a symptom is a restatement of the problem.</div>
+        <div class="field"><label>Root cause hypothesis <span class="req">*</span></label><textarea id="c_rootCause" rows="5" placeholder="One to two paragraphs. Explain the underlying cause. Explain what has changed or was never in place. Be specific enough that the investigation can confirm or disprove it." oninput="autosave(); updateProgress(); scheduleAICheck('c_rootcause')"></textarea></div>
+        <div class="ai-check" id="aiCheck_c_rootcause">
+          <div class="ai-check-header"><span class="ai-spinner"></span><span id="aiLabel_c_rootcause">Checking hypothesis quality...</span></div>
+          <div class="ai-check-body" id="aiBody_c_rootcause"></div>
+        </div>
+        <div class="rule-box"><strong>Pass / fail:</strong> Must be falsifiable. Must explain why the problem exists, not just that it exists.</div>
+      </div>
+    </div>
+
+    <!-- S4: Strategic Linkage -->
+    <div class="card">
+      <div class="card-header"><div class="card-header-left"><div class="section-num">4</div><h2>Strategic linkage</h2></div><span class="points">Max 2 pts</span></div>
+      <div class="card-body">
+        <div class="context-box">Name a specific funded OEM relationship, active roadmap initiative, or stated OKR. Include a number where possible. "Aligns with our mission" scores 0.</div>
+        <div class="field"><label>Link 1 <span class="req">*</span></label><input type="text" id="c_strategicLink1" placeholder="e.g. BMW AI Pilot — active contract, 184 dealers, Q2 2025 target" oninput="autosave(); updateProgress()"></div>
+        <div class="field"><label>Link 2 <span style="font-weight:400;color:var(--ink-3)">(optional)</span></label><input type="text" id="c_strategicLink2" placeholder="Second linkage — or leave blank" oninput="autosave()"></div>
+        <div class="rule-box"><strong>Pass / fail:</strong> Must name a specific funded OEM relationship, active roadmap initiative, or stated OKR. Vague alignment scores 0.</div>
+      </div>
+    </div>
+
+    <!-- S5: Investigation Ask -->
+    <div class="card">
+      <div class="card-header"><div class="card-header-left"><div class="section-num">5</div><h2>Investigation ask</h2></div><span class="points">Max 1 pt</span></div>
+      <div class="card-body">
+        <div class="context-box"><strong>What this section is asking:</strong> two or three specific questions the investigation will answer about the problem — not about the solution. It does not exist to design the solution.</div>
+        <div class="field"><label>Investigation question 1 <span class="req">*</span></label><input type="text" id="c_invQ1" placeholder="Answerable with evidence from customers, data, or market research — not solution design" oninput="autosave(); updateProgress()"></div>
+        <div class="field"><label>Investigation question 2 <span class="req">*</span></label><input type="text" id="c_invQ2" placeholder="Different angle — what else needs to be confirmed or disproved?" oninput="autosave(); updateProgress()"></div>
+        <div class="field"><label>Investigation question 3 <span style="font-weight:400;color:var(--ink-3)">(optional)</span></label><input type="text" id="c_invQ3" placeholder="Optional third question" oninput="autosave()"></div>
+        <hr class="divider">
+        <div class="field-row triple">
+          <div class="field"><label>Proposed PM</label><input type="text" id="c_proposedPM" placeholder="Name" oninput="autosave()"></div>
+          <div class="field"><label>Investigation window</label><select id="c_invWindow" onchange="autosave()"><option value="">Select...</option><option value="2 weeks">2 weeks</option><option value="3 weeks">3 weeks</option><option value="4 weeks">4 weeks</option></select></div>
+          <div class="field"><label>Output</label><input type="text" value="Go / no-go + draft PR/FAQ" readonly style="background:var(--surface-2);color:var(--ink-3);"></div>
+        </div>
+        <div class="rule-box stop"><strong>Hard stop:</strong> No solution proposal. No scope definition. No engineering estimate. If present, one-pager is returned before committee review.</div>
+      </div>
+    </div>
+
+    <!-- Score + Submit -->
+    <div class="score-summary">
+      <div class="score-header"><h2>Score summary</h2><span class="score-total" id="c_scoreDisplay">— / 9</span></div>
+      <div><div class="score-row"><span class="label">Problem statement</span><span class="val pending" id="c_scorePS">Pending</span></div><div class="score-row"><span class="label">Evidence quality</span><span class="val pending" id="c_scoreEQ">Pending</span></div><div class="score-row"><span class="label">Specific evidence + dealer signal</span><span class="val pending" id="c_scoreED">Pending</span></div><div class="score-row"><span class="label">Root cause hypothesis</span><span class="val pending" id="c_scoreRC">Pending</span></div><div class="score-row"><span class="label">Strategic linkage</span><span class="val pending" id="c_scoreSL">Pending</span></div><div class="score-row"><span class="label">Investigation ask</span><span class="val pending" id="c_scoreIA">Pending</span></div></div>
+      <div class="threshold-row"><span>Threshold: 7 / 9 or above + problem statement pass + no solution language + at least one named dealer conversation</span><div class="threshold-track"><div class="threshold-fill" id="c_thresholdFill" style="width:0%"></div><div class="threshold-marker"></div></div></div>
+    </div>
+    <div class="error-banner" id="c_errorBanner"></div>
+    <div class="submit-area"><button class="btn-submit" id="c_submitBtn" onclick="submitForm('c')">Submit to steering committee</button><p class="submit-note">Creates a formatted doc in Google Drive and logs the submission in Smartsheet. Your draft will be cleared on successful submission.</p></div>
+
+  </div><!-- /customerForm -->
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- ARCHITECTURE TRACK -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <div class="form-section arch-focus" id="archForm">
+
+    <div class="page-intro">
+      <span class="stage-tag stage-tag-arch">Architecture track &nbsp;·&nbsp; Stage: Discover</span>
+      <h2>Architecture / platform one-pager</h2>
+      <p>For platform, infrastructure, and architectural constraint work. The "customer" here is the product roadmap and the engineering team. Technical opinion and measured constraint evidence are not the same thing.</p>
+    </div>
+
+    <!-- Header fields -->
+    <div class="card">
+      <div class="card-header"><div class="card-header-left"><div class="section-num arch">i</div><h2>Submission details</h2></div></div>
+      <div class="card-body">
+        <div class="field-row">
+          <div class="field"><label>Initiative name <span class="req">*</span></label><input type="text" id="a_initiativeName" placeholder="e.g. Video metadata schema refactor for per-dimension scoring" oninput="autosave(); updateProgress()"></div>
+          <div class="field"><label>Submission date <span class="req">*</span></label><input type="date" id="a_submissionDate" oninput="autosave(); updateProgress()"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Submitted by <span class="req">*</span></label><input type="text" id="a_submittedBy" placeholder="Your name and role" oninput="autosave(); updateProgress()"></div>
+          <div class="field"><label>Sponsor <span class="req">*</span></label><input type="text" id="a_sponsor" placeholder="VP or above — name required" oninput="autosave(); updateProgress()"></div>
+        </div>
+        <div class="field"><label>Engineering lead <span class="req">*</span></label><input type="text" id="a_engLead" placeholder="Named engineer who has assessed this constraint and will attend the readout" oninput="autosave(); updateProgress()"><p class="helper">Must be a named individual — not "the team".</p></div>
+      </div>
+    </div>
+
+    <!-- S1: Constraint Statement -->
+    <div class="card">
+      <div class="card-header"><div class="card-header-left"><div class="section-num arch">1</div><h2>Constraint statement</h2></div><span class="points">Pass / fail</span></div>
+      <div class="card-body">
+        <div class="context-box">
+          State the specific technical constraint in measurable terms. What cannot be built, scaled, or maintained because this limitation exists? Name the system, the failure mode, and at what threshold it occurs.<br><br>
+          <em>Example: "The current video storage metadata schema uses a flat table structure that cannot support per-dimension scoring queries across 2,000+ dealers without full table scans. At current TVG submission volume (~14,000 videos/day), P95 query latency for the scoring dashboard exceeds 18 seconds — 9× our 2-second UI response target."</em>
+        </div>
+        <div class="warn-box"><span class="icon">⚠</span><span>"Our architecture is getting hard to maintain" is an opinion. "P95 latency degrades to 12 minutes at 1,800 concurrent dealers, breaching our 8-minute SLA" is a constraint. Only the second advances.</span></div>
+        <div class="field">
+          <label>Constraint statement <span class="req">*</span></label>
+          <textarea id="a_constraintStatement" rows="5" placeholder="Name the system. State the measurable failure mode. Identify the threshold at which it becomes a real problem." oninput="autosave(); updateProgress(); scheduleAICheck('a_constraint')"></textarea>
+          <div class="char-counter" id="a_csCounter">0 words</div>
+        </div>
+        <div class="ai-check" id="aiCheck_a_constraint">
+          <div class="ai-check-header"><span class="ai-spinner"></span><span id="aiLabel_a_constraint">Checking constraint quality...</span></div>
+          <div class="ai-check-body" id="aiBody_a_constraint"></div>
+        </div>
+        <div class="rule-box"><strong>Pass / fail:</strong> Must name a specific system. Must state a measurable failure mode or ceiling. Must identify the threshold at which the constraint becomes real. "Technical debt" with no specifics fails.</div>
+      </div>
+    </div>
+
+    <!-- S2: Evidence -->
+    <div class="card">
+      <div class="card-header"><div class="card-header-left"><div class="section-num arch">2</div><h2>Evidence quality — technical</h2></div><span class="points">Max 4 pts</span></div>
+      <div class="card-body">
+        <div class="context-box">Select the highest tier you can substantiate with evidence you currently hold.</div>
+        <div class="tier-grid arch-focus" id="a_tierGrid">
+          <div class="tier-option" data-tier="1" onclick="selectTier('a',1)"><div class="tier-radio"></div><div class="tier-content"><div class="tier-name">Tier 1 — Opinions</div><div class="tier-desc">Engineer self-assessment with no supporting data. "This feels fragile." "We will need to fix this eventually." Architectural intuition without measurement.</div></div><div class="tier-pts">0 pts</div></div>
+          <div class="tier-option" data-tier="2" onclick="selectTier('a',2)"><div class="tier-radio"></div><div class="tier-content"><div class="tier-name">Tier 2 — Assessment</div><div class="tier-desc">Team or lead engineer review. Architecture diagram analysis. Code review findings. External tech review. Feasibility evaluation.</div></div><div class="tier-pts">1 pt</div></div>
+          <div class="tier-option" data-tier="3" onclick="selectTier('a',3)"><div class="tier-radio"></div><div class="tier-content"><div class="tier-name">Tier 3 — Observed symptoms</div><div class="tier-desc">Support escalations attributable to the constraint. Repeated workarounds by engineers. Features deferred because of the limitation. Incidents linked to the system.</div></div><div class="tier-pts">2 pts</div></div>
+          <div class="tier-option" data-tier="4" onclick="selectTier('a',4)"><div class="tier-radio"></div><div class="tier-content"><div class="tier-name">Tier 4 — Measured constraint</div><div class="tier-desc">Benchmark data showing actual degradation. Load test results. Profiling output. SLA breach evidence. Specific query latency, memory usage, or error rate data at scale.</div></div><div class="tier-pts">3 pts</div></div>
+          <div class="tier-option" data-tier="5" onclick="selectTier('a',5)"><div class="tier-radio"></div><div class="tier-content"><div class="tier-name">Tier 5 — Validated at scale</div><div class="tier-desc">Production data showing constraint under real load. Multiple engineers independently confirming the measurement. Incident post-mortems directly attributable to the limitation.</div></div><div class="tier-pts">4 pts</div></div>
+        </div>
+        <div class="rule-box" id="a_tier1Warning" style="display:none; border-left-color:var(--red); background:var(--red-light);"><strong style="color:var(--red);">Tier 1 auto-fails.</strong> This submission will not advance regardless of total score.</div>
+        <div class="rule-box"><strong>Rule:</strong> Tier 1 scores 0 and does not advance. Tier 2 may advance for low-cost investigations only. Tier 3+ required for any significant engineering investment.</div>
+        <hr class="divider">
+        <h3 style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:12px;">2b — Specific technical evidence <span style="font-weight:400;color:var(--ink-3)">(required for Tier 2 and above)</span></h3>
+        <div class="field"><label>Evidence 1 <span class="req">*</span></label><input type="text" id="a_evidence1" placeholder="Measurement, benchmark, or observed symptom — include the number, the system, and when it was measured" oninput="autosave(); updateProgress()"></div>
+        <div class="field"><label>Evidence 2</label><input type="text" id="a_evidence2" placeholder="Second data point — different system or failure mode if available" oninput="autosave()"></div>
+        <div class="field"><label>Evidence 3</label><input type="text" id="a_evidence3" placeholder="Named incidents or support escalations attributable to this constraint" oninput="autosave()"></div>
+        <hr class="divider">
+        <h3 style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:4px;">2c — Engineering signal <span style="font-weight:400;color:var(--ink-3)">(required)</span></h3>
+        <p class="helper" style="margin-bottom:12px;">No named engineer who has assessed the constraint + no identified blast radius = submission does not advance.</p>
+        <div class="field"><label>Named engineers who have assessed this <span class="req">*</span></label><input type="text" id="a_namedEngineers" placeholder="Name at least one engineer who has reviewed the constraint and agrees with the characterization. 'The team' does not qualify." oninput="autosave(); updateProgress()"></div>
+        <div class="field"><label>Blast radius if not addressed <span class="req">*</span></label><textarea id="a_blastRadius" rows="3" placeholder="What specifically breaks, slows, or becomes impossible if this constraint is not resolved? Name the product bets at risk." oninput="autosave(); updateProgress()"></textarea></div>
+        <div class="field">
+          <label>Engineering owner willing to lead investigation</label>
+          <div class="radio-row arch-focus" style="margin-top:4px;">
+            <label class="radio-pill" id="a_ownerYes" onclick="selectOwner('yes')"><input type="radio" name="a_owner" value="yes"> Yes</label>
+            <label class="radio-pill" id="a_ownerNo" onclick="selectOwner('no')"><input type="radio" name="a_owner" value="no"> No</label>
+            <label class="radio-pill selected" id="a_ownerTBD" onclick="selectOwner('tbd')"><input type="radio" name="a_owner" value="tbd" checked> TBD</label>
+          </div>
+        </div>
+        <div class="field" id="a_ownerNameField" style="display:none;"><label>Engineering owner name <span class="req">*</span></label><input type="text" id="a_ownerName" placeholder="Named engineer" oninput="autosave()"></div>
+      </div>
+    </div>
+
+    <!-- S3: Root Cause -->
+    <div class="card">
+      <div class="card-header"><div class="card-header-left"><div class="section-num arch">3</div><h2>Root cause hypothesis</h2></div><span class="points">Max 2 pts</span></div>
+      <div class="card-body">
+        <div class="context-box">
+          Why does this constraint exist? Explain the architectural or design decision that created it — and why that decision was reasonable at the time. Then explain what has changed that makes it a problem now.<br><br>
+          <em>Example: "The flat metadata schema was designed when TVG processed ~200 videos/day at launch. The assumption was that query patterns would remain simple. The introduction of per-dimension scoring requires joins across 5 tables at 14,000 videos/day — a load profile the schema was never designed to handle."</em>
+        </div>
+        <div class="field"><label>Root cause hypothesis <span class="req">*</span></label><textarea id="a_rootCause" rows="5" placeholder="Explain the original design decision and why it was reasonable. Explain what has changed. Be specific enough to be falsifiable." oninput="autosave(); updateProgress(); scheduleAICheck('a_rootcause')"></textarea></div>
+        <div class="ai-check" id="aiCheck_a_rootcause">
+          <div class="ai-check-header"><span class="ai-spinner"></span><span id="aiLabel_a_rootcause">Checking hypothesis quality...</span></div>
+          <div class="ai-check-body" id="aiBody_a_rootcause"></div>
+        </div>
+        <div class="rule-box"><strong>Pass / fail:</strong> Must explain why the constraint exists and what changed. "Legacy code" with no further explanation fails.</div>
+      </div>
+    </div>
+
+    <!-- S4: Product Bets Blocked -->
+    <div class="card">
+      <div class="card-header"><div class="card-header-left"><div class="section-num arch">4</div><h2>Product bets blocked or at risk</h2></div><span class="points">Max 2 pts</span></div>
+      <div class="card-body">
+        <div class="context-box"><strong>Requirement:</strong> Architecture work without a named product bet it unblocks is overhead, not strategy. Name the specific funded initiatives that cannot proceed, cannot scale, or are at risk because of this constraint.</div>
+        <div class="field"><label>Blocked bet 1 <span class="req">*</span></label><input type="text" id="a_blockedBet1" placeholder="Name the specific funded initiative. Explain precisely how this constraint limits or blocks it." oninput="autosave(); updateProgress()"></div>
+        <div class="field"><label>Blocked bet 2 <span style="font-weight:400;color:var(--ink-3)">(optional)</span></label><input type="text" id="a_blockedBet2" placeholder="Second blocked or at-risk initiative, if applicable" oninput="autosave()"></div>
+        <div class="rule-box"><strong>Pass / fail:</strong> Must name a specific funded initiative. "Future flexibility" or "general platform health" scores 0 — these are not product bets.</div>
+      </div>
+    </div>
+
+    <!-- S5: Investigation Ask -->
+    <div class="card">
+      <div class="card-header"><div class="card-header-left"><div class="section-num arch">5</div><h2>Investigation ask</h2></div><span class="points">Max 1 pt</span></div>
+      <div class="card-body">
+        <div class="context-box">
+          Two to three questions the investigation will answer about the constraint — not the solution. The investigation produces an A3 and a six-pager recommendation, not a solution design.<br><br>
+          <em>Example questions: What is the full scope of schema changes required to support per-dimension scoring at 2,000 dealer scale? What is the migration risk to existing TVG video delivery if the schema is refactored? What are the build-vs-refactor options and what does each cost in engineering time?</em>
+        </div>
+        <div class="field"><label>Investigation question 1 <span class="req">*</span></label><input type="text" id="a_invQ1" placeholder="Must be answerable in the investigation window — about the constraint, not the solution" oninput="autosave(); updateProgress()"></div>
+        <div class="field"><label>Investigation question 2 <span class="req">*</span></label><input type="text" id="a_invQ2" placeholder="Different angle on the constraint" oninput="autosave(); updateProgress()"></div>
+        <div class="field"><label>Investigation question 3 <span style="font-weight:400;color:var(--ink-3)">(optional)</span></label><input type="text" id="a_invQ3" placeholder="Optional third question" oninput="autosave()"></div>
+        <hr class="divider">
+        <div class="field-row">
+          <div class="field"><label>Proposed engineering lead</label><input type="text" id="a_proposedEngLead" placeholder="Name" oninput="autosave()"></div>
+          <div class="field"><label>PM support</label><input type="text" id="a_pmSupport" placeholder="Name" oninput="autosave()"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Investigation window</label><select id="a_invWindow" onchange="autosave()"><option value="">Select...</option><option value="2 weeks">2 weeks</option><option value="3 weeks">3 weeks</option><option value="4 weeks">4 weeks</option></select></div>
+          <div class="field"><label>Output</label><input type="text" value="A3 + six-pager recommendation" readonly style="background:var(--surface-2);color:var(--ink-3);"></div>
+        </div>
+        <div class="rule-box stop"><strong>Hard stop:</strong> No solution design. No technology selection. No engineering estimate. Questions that presuppose a solution ("How do we migrate to Postgres?") are out of stage — rephrase as constraint questions ("What are the options for resolving the query latency constraint?").</div>
+      </div>
+    </div>
+
+    <!-- Score + Submit -->
+    <div class="score-summary">
+      <div class="score-header"><h2>Score summary</h2><span class="score-total" id="a_scoreDisplay">— / 9</span></div>
+      <div><div class="score-row"><span class="label">Constraint statement</span><span class="val pending" id="a_scoreCS">Pending</span></div><div class="score-row"><span class="label">Evidence quality</span><span class="val pending" id="a_scoreEQ">Pending</span></div><div class="score-row"><span class="label">Specific evidence + engineering signal</span><span class="val pending" id="a_scoreED">Pending</span></div><div class="score-row"><span class="label">Root cause hypothesis</span><span class="val pending" id="a_scoreRC">Pending</span></div><div class="score-row"><span class="label">Product bets blocked</span><span class="val pending" id="a_scorePB">Pending</span></div><div class="score-row"><span class="label">Investigation ask</span><span class="val pending" id="a_scoreIA">Pending</span></div></div>
+      <div class="threshold-row"><span>Threshold: 7 / 9 or above + constraint statement pass + named engineer who assessed the constraint + at least one named blocked product bet</span><div class="threshold-track"><div class="threshold-fill" id="a_thresholdFill" style="width:0%"></div><div class="threshold-marker"></div></div></div>
+    </div>
+    <div class="error-banner" id="a_errorBanner"></div>
+    <div class="submit-area"><button class="btn-submit arch-btn" id="a_submitBtn" onclick="submitForm('a')">Submit to steering committee</button><p class="submit-note">Creates a formatted doc in Google Drive and logs the submission in Smartsheet. Your draft will be cleared on successful submission.</p></div>
+
+  </div><!-- /archForm -->
+
+</main><!-- /mainForm -->
+
+<!-- Success screen -->
+<div class="main success-screen" id="successScreen">
+  <div class="success-icon">✓</div>
+  <h2>Submission received</h2>
+  <p>Your one-pager has been logged in the submissions tracker and a formatted document has been created in the shared Drive folder for committee review.</p>
+  <div class="success-links">
+    <button class="success-link" id="docLink" onclick="window.top.location.href=this.dataset.url" data-url="#">View your document →</button>
+    <button class="success-link" id="sheetLink" onclick="window.top.location.href=this.dataset.url" data-url="#">View submissions tracker →</button>
+  </div>
+  <br>
+  <button class="btn-another" onclick="resetForm()">Submit another one-pager</button>
+</div>
+
+<!-- Auto-save indicator -->
+<div class="save-indicator" id="saveIndicator">Draft saved</div>
+
+<script>
+// ─── CONFIG ──────────────────────────────────────────────────────────────────
+const APPS_SCRIPT_URL  = 'https://script.google.com/macros/s/AKfycbzbeIVnHNbfV3mx_r6B091YHTTZNF6qwFU8uJq42U7YuY0aPgMVTLKDnISyAvg3lUM/exec';
+const SHEET_URL        = 'https://app.smartsheet.com/sheets/7654690199129988';
+const AUTOSAVE_KEY     = 'mk_onepager_draft';
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let currentType = null;
+let selectedTiers = { c: null, a: null };
+let selectedPilot = 'not_asked';
+let selectedOwner = 'tbd';
+let aiTimers = {};
+let aiResults = {};
+let saveTimer = null;
+let saveIndicatorTimer = null;
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+document.getElementById('c_submissionDate').value = new Date().toISOString().split('T')[0];
+document.getElementById('a_submissionDate').value = new Date().toISOString().split('T')[0];
+restoreDraft();
+
+// ─── TYPE SELECTION ──────────────────────────────────────────────────────────
+function selectType(type) {
+  currentType = type;
+  document.getElementById('cardCustomer').className = 'type-card' + (type === 'customer' ? ' selected-customer' : '');
+  document.getElementById('cardArch').className = 'type-card' + (type === 'arch' ? ' selected-arch' : '');
+  document.getElementById('customerForm').className = 'form-section' + (type === 'customer' ? ' active' : '');
+  document.getElementById('archForm').className = 'form-section arch-focus' + (type === 'arch' ? ' active' : '');
+  document.getElementById('headerDocType').textContent = type === 'customer'
+    ? 'Product One-Pager  ·  Customer Track'
+    : 'Product One-Pager  ·  Architecture Track';
+  autosave();
+  updateProgress();
+  setTimeout(() => {
+    const formEl = type === 'customer' ? document.getElementById('customerForm') : document.getElementById('archForm');
+    formEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+}
+
+// ─── TIER SELECTION ──────────────────────────────────────────────────────────
+function selectTier(prefix, tier) {
+  selectedTiers[prefix] = tier;
+  const grid = document.getElementById(prefix + '_tierGrid');
+  grid.querySelectorAll('.tier-option').forEach(el => el.classList.remove('selected'));
+  grid.querySelector(`.tier-option[data-tier="${tier}"]`).classList.add('selected');
+  document.getElementById(prefix + '_tier1Warning').style.display = tier === 1 ? 'block' : 'none';
+  autosave();
+  updateScore(prefix);
+  updateProgress();
+}
+
+// ─── PILOT / OWNER SELECTION ─────────────────────────────────────────────────
+function selectPilot(prefix, val) {
+  selectedPilot = val;
+  ['Yes','No','NotAsked'].forEach(s => {
+    const key = s === 'NotAsked' ? 'not_asked' : s.toLowerCase();
+    const el = document.getElementById('c_pilot' + s);
+    if (el) el.className = 'radio-pill' + (val === key ? ' selected' : '');
+  });
+  document.getElementById('c_pilotNameField').style.display = val === 'yes' ? 'block' : 'none';
+  autosave();
+}
+
+function selectOwner(val) {
+  selectedOwner = val;
+  ['Yes','No','TBD'].forEach(s => {
+    const key = s.toLowerCase();
+    const el = document.getElementById('a_owner' + s);
+    if (el) el.className = 'radio-pill' + (val === key ? ' selected' : '');
+  });
+  document.getElementById('a_ownerNameField').style.display = val === 'yes' ? 'block' : 'none';
+  autosave();
+}
+
+// ─── WORD COUNTER ────────────────────────────────────────────────────────────
+['c_problemStatement','a_constraintStatement'].forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const counterId = id === 'c_problemStatement' ? 'c_psCounter' : 'a_csCounter';
+  el.addEventListener('input', function() {
+    const words = this.value.trim().split(/\s+/).filter(Boolean).length;
+    const cel = document.getElementById(counterId);
+    cel.textContent = words + ' words';
+    cel.className = 'char-counter' + (words > 120 ? ' warn' : '');
+  });
+});
+
+// ─── AI VALIDATION ────────────────────────────────────────────────────────────
+function scheduleAICheck(key) {
+  clearTimeout(aiTimers[key]);
+  aiTimers[key] = setTimeout(() => runAICheck(key), 1800);
+}
+
+async function runAICheck(key) {
+  const textElMap = {
+    'c_problem': 'c_problemStatement',
+    'c_rootcause': 'c_rootCause',
+    'a_constraint': 'a_constraintStatement',
+    'a_rootcause': 'a_rootCause'
+  };
+  const textEl = document.getElementById(textElMap[key]);
+  const text = textEl ? textEl.value.trim() : '';
+  if (text.length < 60) return;
+
+  const container = document.getElementById('aiCheck_' + key);
+  const labelEl = document.getElementById('aiLabel_' + key);
+  const bodyEl = document.getElementById('aiBody_' + key);
+  if (!container) return;
+
+  container.className = 'ai-check visible checking';
+  labelEl.innerHTML = '<span class="ai-spinner"></span> Checking...';
+  bodyEl.textContent = '';
+
+  const prompts = {
+    'c_problem': `You are reviewing a product one-pager problem statement for myKaarma, a B2B automotive dealership SaaS. The rule: zero solution language — no features, no product descriptions, no "we will build" or "we should add." Review: "${text}" Respond ONLY in this exact JSON format: {"status":"ok"|"warn"|"error","label":"5 words max","feedback":"1-2 sentences. If ok confirm what works. If warn/error quote the specific problematic phrase."}`,
+    'c_rootcause': `You are reviewing a root cause hypothesis for a myKaarma product investigation one-pager. Your job is to evaluate whether it explains WHY the problem exists and is falsifiable — not whether it mentions a solution.
+
+IMPORTANT DISTINCTIONS:
+- Describing an ABSENT capability as the root cause (e.g. "no measurement mechanism exists") is NOT solution language — it is a valid causal diagnosis.
+- Solution language would be: "we should build X" or "we need to add Y feature" — prescriptive statements about what to create.
+- A hypothesis can mention what is missing without proposing a fix.
+
+Score "ok" if: the hypothesis explains why the problem exists, what structural condition enables it, and is specific enough to be proven wrong by investigation.
+Score "warn" ONLY if: the hypothesis partially explains the cause but has a minor gap or vague element — NOT for mentioning absent capabilities.
+Score "error" ONLY if: it merely restates the problem (e.g. "dealers are unhappy"), contains explicit solution proposals ("we must build X"), or is completely unfalsifiable.
+
+Review this hypothesis: "${text}"
+
+Respond ONLY in this exact JSON format: {"status":"ok"|"warn"|"error","label":"5 words max","feedback":"1-2 sentences. If ok, confirm what makes it strong. If warn/error, quote the specific phrase that is the actual problem."}`,
+    'a_constraint': `You are reviewing an architecture constraint statement for myKaarma. Rule: must name a specific system, state a measurable failure mode, and identify the threshold at which it becomes real. Opinion-based ("this feels fragile") fails. Review: "${text}" Respond ONLY in JSON: {"status":"ok"|"warn"|"error","label":"5 words max","feedback":"1-2 sentences. Quote specific phrase if problematic."}`,
+    'a_rootcause': `You are reviewing an architecture root cause hypothesis for myKaarma. The hypothesis must: (1) explain the original design decision that created the constraint and why it was reasonable at the time, (2) explain what has changed that makes it a problem now, (3) be specific enough to be falsifiable. "Legacy code" with no further explanation fails. Describing what the system lacks or was never designed to do is valid causal reasoning — not solution language. Score "error" only if the hypothesis is a restatement of the problem, contains explicit solution proposals, or is completely unfalsifiable. Score "warn" only for minor gaps. Score "ok" if all three conditions are met. Review: "${text}" Respond ONLY in JSON: {"status":"ok"|"warn"|"error","label":"5 words max","feedback":"1-2 sentences. If ok confirm what makes it strong. If warn/error quote the specific problematic phrase."}`
+  };
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 300, messages: [{ role: 'user', content: prompts[key] }] })
+    });
+    const data = await response.json();
+    const raw = data.content?.[0]?.text || '';
+    const result = JSON.parse(raw.replace(/```json|```/g, '').trim());
+    aiResults[key] = result.status;
+    container.className = 'ai-check visible ' + result.status;
+    const icon = result.status === 'ok' ? '✓' : result.status === 'warn' ? '⚠' : '✗';
+    labelEl.textContent = icon + ' ' + result.label;
+    bodyEl.textContent = result.feedback;
+    const prefix = key.startsWith('c') ? 'c' : 'a';
+    updateScore(prefix);
+  } catch(e) {
+    container.className = 'ai-check';
+    aiResults[key] = null;
+  }
+}
+
+// ─── SCORE ───────────────────────────────────────────────────────────────────
+function updateScore(prefix) {
+  if (prefix === 'c') {
+    const ps = document.getElementById('c_problemStatement').value.trim();
+    const rc = document.getElementById('c_rootCause').value.trim();
+    const sl1 = document.getElementById('c_strategicLink1').value.trim();
+    const iq1 = document.getElementById('c_invQ1').value.trim();
+    const iq2 = document.getElementById('c_invQ2').value.trim();
+    const ev1 = document.getElementById('c_evidence1').value.trim();
+    const dealers = document.getElementById('c_namedDealers').value.trim();
+    const convCount = document.getElementById('c_dealerConvCount').value.trim();
+    const tier = selectedTiers.c;
+    const tierPtsMap = {1:0,2:1,3:2,4:3,5:4,6:5};
+    let eqScore = tier ? (tierPtsMap[tier] || 0) : 0;
+    const psOk = ps.length > 20 && aiResults['c_problem'] !== 'error';
+    const rcScore = rc.length > 20 ? (aiResults['c_rootcause'] === 'error' ? 1 : rc.length > 40 ? 2 : 1) : 0;
+    const slScore = sl1.length > 10 ? (document.getElementById('c_strategicLink2').value.trim().length > 10 ? 2 : 1) : 0;
+    const iaScore = iq1.length > 10 && iq2.length > 10 ? 1 : 0;
+    const total = Math.min(4, eqScore) + rcScore + slScore + iaScore;
+    const blocked = tier === 1 || (ps.length > 20 && aiResults['c_problem'] === 'error');
+    const setVal = (id, text, cls) => { const el = document.getElementById(id); if(el){el.textContent=text; el.className='val '+cls;} };
+    setVal('c_scorePS', ps.length < 20 ? 'Pending' : psOk ? 'Pass' : aiResults['c_problem'] === 'warn' ? 'Review' : ps.length > 20 && !aiResults['c_problem'] ? 'Pending' : 'Fail', ps.length < 20 ? 'pending' : psOk ? 'pass' : 'fail');
+    setVal('c_scoreEQ', !tier ? 'Pending' : tier === 1 ? 'Auto-fail' : Math.min(4,eqScore)+' / 4', !tier ? 'pending' : tier === 1 ? 'fail' : 'score');
+    const edOk = ev1.length > 10 && dealers.length > 5 && convCount.length > 0;
+    setVal('c_scoreED', !ev1.length ? 'Pending' : edOk ? 'Complete' : 'Partial', !ev1.length ? 'pending' : edOk ? 'pass' : 'partial');
+    setVal('c_scoreRC', rc.length < 20 ? 'Pending' : rcScore+' / 2', rc.length < 20 ? 'pending' : 'score');
+    setVal('c_scoreSL', !sl1.length ? 'Pending' : slScore+' / 2', !sl1.length ? 'pending' : 'score');
+    setVal('c_scoreIA', !iq1.length ? 'Pending' : iaScore+' / 1', !iq1.length ? 'pending' : 'score');
+    document.getElementById('c_scoreDisplay').textContent = blocked ? 'Blocked' : total+' / 9';
+    document.getElementById('c_thresholdFill').style.width = Math.min(100,(total/9)*100)+'%';
+  } else {
+    const cs = document.getElementById('a_constraintStatement').value.trim();
+    const rc = document.getElementById('a_rootCause').value.trim();
+    const bb1 = document.getElementById('a_blockedBet1').value.trim();
+    const iq1 = document.getElementById('a_invQ1').value.trim();
+    const iq2 = document.getElementById('a_invQ2').value.trim();
+    const ev1 = document.getElementById('a_evidence1').value.trim();
+    const eng = document.getElementById('a_namedEngineers').value.trim();
+    const blast = document.getElementById('a_blastRadius').value.trim();
+    const tier = selectedTiers.a;
+    const tierPtsMap = {1:0,2:1,3:2,4:3,5:4};
+    let eqScore = tier ? (tierPtsMap[tier] || 0) : 0;
+    const csOk = cs.length > 20 && aiResults['a_constraint'] !== 'error';
+    const rcScore = rc.length > 20 ? (aiResults['a_rootcause'] === 'error' ? 1 : rc.length > 40 ? 2 : 1) : 0;
+    const pbScore = bb1.length > 10 ? (document.getElementById('a_blockedBet2').value.trim().length > 10 ? 2 : 1) : 0;
+    const iaScore = iq1.length > 10 && iq2.length > 10 ? 1 : 0;
+    const total = Math.min(4, eqScore) + rcScore + pbScore + iaScore;
+    const blocked = tier === 1;
+    const setVal = (id, text, cls) => { const el = document.getElementById(id); if(el){el.textContent=text; el.className='val '+cls;} };
+    setVal('a_scoreCS', cs.length < 20 ? 'Pending' : csOk ? 'Pass' : aiResults['a_constraint'] === 'warn' ? 'Review' : cs.length > 20 && !aiResults['a_constraint'] ? 'Pending' : 'Fail', cs.length < 20 ? 'pending' : csOk ? 'pass' : 'fail');
+    setVal('a_scoreEQ', !tier ? 'Pending' : tier === 1 ? 'Auto-fail' : Math.min(4,eqScore)+' / 4', !tier ? 'pending' : tier === 1 ? 'fail' : 'score');
+    const edOk = ev1.length > 10 && eng.length > 5 && blast.length > 10;
+    setVal('a_scoreED', !ev1.length ? 'Pending' : edOk ? 'Complete' : 'Partial', !ev1.length ? 'pending' : edOk ? 'pass' : 'partial');
+    setVal('a_scoreRC', rc.length < 20 ? 'Pending' : rcScore+' / 2', rc.length < 20 ? 'pending' : 'score');
+    setVal('a_scorePB', !bb1.length ? 'Pending' : pbScore+' / 2', !bb1.length ? 'pending' : 'score');
+    setVal('a_scoreIA', !iq1.length ? 'Pending' : iaScore+' / 1', !iq1.length ? 'pending' : 'score');
+    document.getElementById('a_scoreDisplay').textContent = blocked ? 'Blocked' : total+' / 9';
+    document.getElementById('a_thresholdFill').style.width = Math.min(100,(total/9)*100)+'%';
+  }
+}
+
+// ─── PROGRESS ────────────────────────────────────────────────────────────────
+function updateProgress() {
+  if (!currentType) { document.getElementById('progressBar').style.width = '5%'; return; }
+  const cFields = ['c_initiativeName','c_submittedBy','c_sponsor','c_problemStatement','c_evidence1','c_namedDealers','c_dealerConvCount','c_rootCause','c_strategicLink1','c_invQ1','c_invQ2'];
+  const aFields = ['a_initiativeName','a_submittedBy','a_sponsor','a_engLead','a_constraintStatement','a_evidence1','a_namedEngineers','a_blastRadius','a_rootCause','a_blockedBet1','a_invQ1','a_invQ2'];
+  const fields = currentType === 'customer' ? cFields : aFields;
+  const filled = fields.filter(id => (document.getElementById(id)?.value?.trim().length || 0) > 0).length;
+  const tierFilled = selectedTiers[currentType === 'customer' ? 'c' : 'a'] ? 1 : 0;
+  const pct = Math.round(((filled + tierFilled) / (fields.length + 1)) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  if (currentType) updateScore(currentType === 'customer' ? 'c' : 'a');
+}
+
+// ─── AUTO-SAVE ───────────────────────────────────────────────────────────────
+function autosave() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    try {
+      const draft = {
+        type: currentType,
+        tiers: selectedTiers,
+        pilot: selectedPilot,
+        owner: selectedOwner,
+        fields: {}
+      };
+      const allFields = ['c_initiativeName','c_submissionDate','c_submittedBy','c_sponsor','c_problemStatement','c_evidence1','c_evidence2','c_evidence3','c_namedDealers','c_dealerConvCount','c_pilotDealerName','c_rootCause','c_strategicLink1','c_strategicLink2','c_invQ1','c_invQ2','c_invQ3','c_proposedPM','c_invWindow','a_initiativeName','a_submissionDate','a_submittedBy','a_sponsor','a_engLead','a_constraintStatement','a_evidence1','a_evidence2','a_evidence3','a_namedEngineers','a_blastRadius','a_ownerName','a_rootCause','a_blockedBet1','a_blockedBet2','a_invQ1','a_invQ2','a_invQ3','a_proposedEngLead','a_pmSupport','a_invWindow'];
+      allFields.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) draft.fields[id] = el.value;
+      });
+      draft.savedAt = new Date().toISOString();
+      localStorage.setItem(AUTOSAVE_KEY, JSON.stringify(draft));
+      showSaveIndicator();
+    } catch(e) {}
+  }, 600);
+}
+
+function showSaveIndicator() {
+  const el = document.getElementById('saveIndicator');
+  el.className = 'save-indicator visible';
+  clearTimeout(saveIndicatorTimer);
+  saveIndicatorTimer = setTimeout(() => { el.className = 'save-indicator'; }, 2000);
+}
+
+function restoreDraft() {
+  try {
+    const raw = localStorage.getItem(AUTOSAVE_KEY);
+    if (!raw) return;
+    const draft = JSON.parse(raw);
+    if (!draft || !draft.type) return;
+
+    // Restore fields
+    Object.entries(draft.fields || {}).forEach(([id, val]) => {
+      const el = document.getElementById(id);
+      if (el) el.value = val;
+    });
+
+    // Restore type
+    if (draft.type) {
+      currentType = draft.type;
+      selectType(draft.type);
+    }
+
+    // Restore tiers
+    if (draft.tiers) {
+      if (draft.tiers.c) selectTier('c', draft.tiers.c);
+      if (draft.tiers.a) selectTier('a', draft.tiers.a);
+    }
+
+    // Restore pilot / owner
+    if (draft.pilot) selectPilot('c', draft.pilot);
+    if (draft.owner) selectOwner(draft.owner);
+
+    // Show banner
+    const banner = document.getElementById('restoreBanner');
+    const savedAt = draft.savedAt ? new Date(draft.savedAt).toLocaleString() : '';
+    if (savedAt) {
+      banner.querySelector('div').innerHTML = `<strong>Draft restored</strong> from ${savedAt}. You can leave this page and return on this device — your progress will be here. <strong>Clearing your browser cache will erase it.</strong> &nbsp;<a href="#" onclick="clearDraft(event)" style="color:var(--green);text-decoration:underline;">Clear draft and start over</a>`;
+    }
+    banner.style.display = 'flex';
+
+    updateProgress();
+  } catch(e) {}
+}
+
+function clearDraft(e) {
+  if (e) e.preventDefault();
+  localStorage.removeItem(AUTOSAVE_KEY);
+  document.getElementById('restoreBanner').style.display = 'none';
+  location.reload();
+}
+
+// ─── SUBMIT ──────────────────────────────────────────────────────────────────
+async function submitForm(prefix) {
+  const errId = prefix + '_errorBanner';
+  const errorEl = document.getElementById(errId);
+  errorEl.className = 'error-banner';
+
+  const isCustomer = prefix === 'c';
+
+  const required = isCustomer ? [
+    ['c_initiativeName','Initiative name is required.'],
+    ['c_submittedBy','Submitter name is required.'],
+    ['c_sponsor','Sponsor name is required.'],
+    ['c_problemStatement','Problem statement is required.'],
+    ['c_evidence1','At least one specific evidence data point is required.'],
+    ['c_namedDealers','At least one named dealer is required.'],
+    ['c_dealerConvCount','Dealer conversation count is required.'],
+    ['c_rootCause','Root cause hypothesis is required.'],
+    ['c_strategicLink1','At least one strategic linkage is required.'],
+    ['c_invQ1','Investigation question 1 is required.'],
+    ['c_invQ2','Investigation question 2 is required.'],
+  ] : [
+    ['a_initiativeName','Initiative name is required.'],
+    ['a_submittedBy','Submitter name is required.'],
+    ['a_sponsor','Sponsor name is required.'],
+    ['a_engLead','Engineering lead is required.'],
+    ['a_constraintStatement','Constraint statement is required.'],
+    ['a_evidence1','At least one specific evidence data point is required.'],
+    ['a_namedEngineers','Named engineers who assessed this constraint are required.'],
+    ['a_blastRadius','Blast radius is required.'],
+    ['a_rootCause','Root cause hypothesis is required.'],
+    ['a_blockedBet1','At least one blocked product bet is required.'],
+    ['a_invQ1','Investigation question 1 is required.'],
+    ['a_invQ2','Investigation question 2 is required.'],
+  ];
+
+  for (const [id, msg] of required) {
+    if (!document.getElementById(id)?.value?.trim()) {
+      errorEl.textContent = msg; errorEl.className = 'error-banner visible';
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+  }
+
+  const tierKey = isCustomer ? 'c' : 'a';
+  if (!selectedTiers[tierKey]) {
+    errorEl.textContent = 'Please select an evidence tier.'; errorEl.className = 'error-banner visible'; return;
+  }
+  if (selectedTiers[tierKey] === 1) {
+    errorEl.textContent = 'Tier 1 (Opinions) submissions cannot advance. Please return with stronger evidence.'; errorEl.className = 'error-banner visible'; return;
+  }
+
+  const btn = document.getElementById(prefix + '_submitBtn');
+  btn.disabled = true; btn.textContent = 'Submitting...';
+
+  const tierNames = {1:'Tier 1 — Opinions',2:'Tier 2 — Assessment',3:'Tier 3 — Observed symptoms / Assessment',4:'Tier 4 — Measured constraint / Data market',5:'Tier 5 — Validated at scale / Customer evidence',6:'Tier 6 — Test results'};
+  const tierPtsMap = {1:0,2:1,3:2,4:3,5:4,6:5};
+  const tier = selectedTiers[tierKey];
+
+  const g = id => document.getElementById(id)?.value?.trim() || '';
+
+  const payload = isCustomer ? {
+    formType: 'customer',
+    initiativeName: g('c_initiativeName'), submissionDate: g('c_submissionDate'),
+    submittedBy: g('c_submittedBy'), sponsor: g('c_sponsor'),
+    problemStatement: g('c_problemStatement'),
+    evidenceTier: tier, evidenceTierName: tierNames[tier], evidenceTierPts: tierPtsMap[tier],
+    evidence1: g('c_evidence1'), evidence2: g('c_evidence2'), evidence3: g('c_evidence3'),
+    namedDealers: g('c_namedDealers'), dealerConvCount: g('c_dealerConvCount'),
+    pilotWilling: selectedPilot, pilotDealerName: g('c_pilotDealerName'),
+    rootCause: g('c_rootCause'),
+    strategicLink1: g('c_strategicLink1'), strategicLink2: g('c_strategicLink2'),
+    invQ1: g('c_invQ1'), invQ2: g('c_invQ2'), invQ3: g('c_invQ3'),
+    proposedPM: g('c_proposedPM'), invWindow: g('c_invWindow'),
+    aiProblemCheck: aiResults['c_problem'] || 'not_checked',
+    aiRootcauseCheck: aiResults['c_rootcause'] || 'not_checked',
+    folderId: '1xCtGp6UqgwWoqvCozR0oJTHBW-SqMIdb'
+  } : {
+    formType: 'architecture',
+    initiativeName: g('a_initiativeName'), submissionDate: g('a_submissionDate'),
+    submittedBy: g('a_submittedBy'), sponsor: g('a_sponsor'), engLead: g('a_engLead'),
+    constraintStatement: g('a_constraintStatement'),
+    evidenceTier: tier, evidenceTierName: tierNames[tier], evidenceTierPts: tierPtsMap[tier],
+    evidence1: g('a_evidence1'), evidence2: g('a_evidence2'), evidence3: g('a_evidence3'),
+    namedEngineers: g('a_namedEngineers'), blastRadius: g('a_blastRadius'),
+    engineeringOwner: selectedOwner, ownerName: g('a_ownerName'),
+    rootCause: g('a_rootCause'),
+    blockedBet1: g('a_blockedBet1'), blockedBet2: g('a_blockedBet2'),
+    invQ1: g('a_invQ1'), invQ2: g('a_invQ2'), invQ3: g('a_invQ3'),
+    proposedEngLead: g('a_proposedEngLead'), pmSupport: g('a_pmSupport'), invWindow: g('a_invWindow'),
+    aiConstraintCheck: aiResults['a_constraint'] || 'not_checked',
+    aiRootcauseCheck: aiResults['a_rootcause'] || 'not_checked',
+    folderId: '1xCtGp6UqgwWoqvCozR0oJTHBW-SqMIdb'
+  };
+
+  try {
+    const response = await fetch(APPS_SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) });
+    const result = await response.json();
+    localStorage.removeItem(AUTOSAVE_KEY);
+    document.getElementById('mainForm').style.display = 'none';
+    document.getElementById('successScreen').className = 'main success-screen visible';
+    if (result.docUrl) document.getElementById('docLink').dataset.url = result.docUrl;
+    document.getElementById('sheetLink').dataset.url = SHEET_URL;
+  } catch(e) {
+    errorEl.textContent = 'Submission failed. Please try again. (' + e.message + ')';
+    errorEl.className = 'error-banner visible';
+    btn.disabled = false;
+    btn.textContent = prefix === 'c' ? 'Submit to steering committee' : 'Submit to steering committee';
+  }
+}
+
+function resetForm() {
+  document.getElementById('successScreen').className = 'main success-screen';
+  document.getElementById('mainForm').style.display = 'block';
+  currentType = null; selectedTiers = {c:null,a:null}; selectedPilot='not_asked'; selectedOwner='tbd';
+  aiResults = {};
+  document.querySelectorAll('input[type="text"], textarea').forEach(el => el.value='');
+  document.getElementById('c_submissionDate').value = new Date().toISOString().split('T')[0];
+  document.getElementById('a_submissionDate').value = new Date().toISOString().split('T')[0];
+  document.querySelectorAll('.tier-option').forEach(el => el.classList.remove('selected'));
+  document.querySelectorAll('.ai-check').forEach(el => el.className='ai-check');
+  document.getElementById('c_tier1Warning').style.display='none';
+  document.getElementById('a_tier1Warning').style.display='none';
+  document.getElementById('customerForm').className='form-section';
+  document.getElementById('archForm').className='form-section arch-focus';
+  document.getElementById('cardCustomer').className='type-card';
+  document.getElementById('cardArch').className='type-card';
+  selectPilot('c','not_asked'); selectOwner('tbd');
+  updateProgress();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+updateProgress();
+</script>
+</body>
+</html>

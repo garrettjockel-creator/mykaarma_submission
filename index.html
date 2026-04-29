@@ -576,8 +576,8 @@
   <h2>Submission received</h2>
   <p>Your one-pager has been logged in the submissions tracker and a formatted document has been created in the shared Drive folder for committee review.</p>
   <div class="success-links">
-    <button class="success-link" id="docLink" onclick="window.top.location.href=this.dataset.url" data-url="#">View your document →</button>
-    <button class="success-link" id="sheetLink" onclick="window.top.location.href=this.dataset.url" data-url="#">View submissions tracker →</button>
+    <button class="success-link" id="docLink" onclick="window.open(this.dataset.url,'_blank')" data-url="#">View your document →</button>
+    <button class="success-link" id="sheetLink" onclick="window.open(this.dataset.url,'_blank')" data-url="#">View submissions tracker →</button>
   </div>
   <br>
   <button class="btn-another" onclick="resetForm()">Submit another one-pager</button>
@@ -588,8 +588,8 @@
 
 <script>
 // ─── CONFIG ──────────────────────────────────────────────────────────────────
-const APPS_SCRIPT_URL  = 'https://script.google.com/macros/s/AKfycbzbeIVnHNbfV3mx_r6B091YHTTZNF6qwFU8uJq42U7YuY0aPgMVTLKDnISyAvg3lUM/exec';
-const SHEET_URL        = 'https://app.smartsheet.com/sheets/7654690199129988';
+const APPS_SCRIPT_URL  = 'https://script.google.com/macros/s/AKfycbygdW2vcVRxjCusR_V8yfW7UBneiirPk0yWwRTiCVWyokDaV6ALrVhsJv8JASzZF1hS/exec';
+const SHEET_URL        = 'https://app.smartsheet.com/sheets/9PpG9f5wW6gg5Q5MqRjrvF42FWCFPjCMg37Xj4C1';
 const AUTOSAVE_KEY     = 'mk_onepager_draft';
 
 // ─── STATE ───────────────────────────────────────────────────────────────────
